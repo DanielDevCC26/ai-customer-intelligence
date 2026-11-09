@@ -1,0 +1,22 @@
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Environment variables and credentials
+.env
+.env.*
+!.env.example
+
+# Generated data
+data/processed/
+
+# Original datasets
+data/raw/
+
+# Editor and system files
+.vscode/
+.DS_Store
+Thumbs.db
