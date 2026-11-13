@@ -226,21 +226,30 @@ if loja_escolhida is not None:
         )
 
         
+        
         if classificacao == "Amostra limitada":
-            st.info(f"Classificação operacional: {classificacao}")
-        elif classificacao == "Atenção":
-            st.warning(f"Classificação operacional: {classificacao}")
-        else:
-            st.success(f"Classificação operacional: {classificacao}")
-
-
-
-
-        if loja_detalhada["total_pedidos"] < 100:
             st.info(
-                "ℹ️ Este restaurante possui menos de 100 pedidos. "
-                "A amostra é limitada e os indicadores devem "
-                "ser interpretados com cautela."
+                "Classificação operacional: Amostra limitada. "
+                "O restaurante possui menos de 100 pedidos; "
+                "os indicadores devem ser interpretados com cautela."
+            )
+
+        
+        elif classificacao == "Atenção":
+            st.warning(
+                "Classificação operacional: Atenção. "
+                "O restaurante possui pelo menos 100 pedidos "
+                "e apresenta taxa de cancelamento acima "
+                "da média geral da plataforma."
+            )
+
+        
+        else:
+            st.success(
+                "Classificação operacional: Dentro da referência. "
+                "O restaurante possui pelo menos 100 pedidos "
+                "e apresenta taxa de cancelamento igual ou "
+                "inferior à média geral da plataforma."
             )
 
 
