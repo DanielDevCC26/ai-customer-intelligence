@@ -1,0 +1,7 @@
+
+pandas
+streamlit
+altair
+google-genai
+python-dotenv
+pytest
