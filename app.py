@@ -4,7 +4,7 @@ import streamlit as st
 
 from google.genai.errors import ServerError
 
-from src.analysis import analisar_cancelamentos
+from src.analysis import analisar_cancelamentos, classificar_restaurante
 from src.database import consultar_todas_lojas
 from src.report import gerar_relatorio_loja
 
@@ -219,6 +219,21 @@ if loja_escolhida is not None:
 
     if loja_detalhada:
         st.subheader("📋 Indicadores do restaurante")
+
+        classificacao = classificar_restaurante(
+            loja_detalhada,
+            taxa_geral,
+        )
+
+        
+        if classificacao == "Amostra limitada":
+            st.info(f"Classificação operacional: {classificacao}")
+        elif classificacao == "Atenção":
+            st.warning(f"Classificação operacional: {classificacao}")
+        else:
+            st.success(f"Classificação operacional: {classificacao}")
+
+
 
 
         if loja_detalhada["total_pedidos"] < 100:

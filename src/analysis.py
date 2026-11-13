@@ -29,3 +29,15 @@ def analisar_cancelamentos(limite=10):
         analises.append(analise)
 
     return analises
+
+
+def classificar_restaurante(loja, taxa_referencia):
+    """Classifica uma loja com base no volume e na taxa de cancelamento."""
+
+    if loja["total_pedidos"] < 100:
+        return "Amostra limitada"
+
+    if loja["taxa_cancelamento"] > taxa_referencia:
+        return "Atenção"
+
+    return "Dentro da referência"
