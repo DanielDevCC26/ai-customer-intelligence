@@ -252,6 +252,47 @@ if loja_escolhida is not None:
             else "Indisponível",
         )
 
+
+        st.subheader("📊 Comparação de cancelamentos")
+
+        dados_comparacao = [
+            {
+                "Origem": "Restaurante selecionado",
+                "Taxa (%)": loja_detalhada["taxa_cancelamento"],
+            },
+            {
+                "Origem": "Média da plataforma",
+                "Taxa (%)": taxa_geral,
+            },
+        ]
+
+        grafico_comparacao = (
+            alt.Chart(alt.Data(values=dados_comparacao))
+            .mark_bar()
+            .encode(
+                
+                y=alt.Y(
+                    "Origem:N",
+                    title=None,
+                    sort="-x",
+                    axis=alt.Axis(labelLimit=220),
+                ),
+                x=alt.X(
+                    "Taxa (%):Q",
+                    title="Cancelamentos (%)",
+                    axis=alt.Axis(tickCount=6),
+                    scale=alt.Scale(domain=[0, 100]),
+                ),
+
+                color=alt.Color("Origem:N", legend=None),
+                tooltip=["Origem:N", alt.Tooltip("Taxa (%):Q", format=".2f")],
+            )
+            .properties(height=300)
+        )
+
+        st.altair_chart(grafico_comparacao, width="stretch")
+
+
         if tempo_mediano is not None and tempo_mediano > 120:
             st.warning(
                 "⚠️ O tempo mediano do ciclo está acima de 120 minutos. "
