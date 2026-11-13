@@ -208,6 +208,53 @@ st.caption(
 )
 
 
+if loja_escolhida is not None:
+    store_id = lojas_disponiveis[loja_escolhida]
+
+    loja_detalhada = next(
+        (loja for loja in todas_lojas if loja["store_id"] == store_id),
+        None,
+    )
+
+    if loja_detalhada:
+        st.subheader("📋 Indicadores do restaurante")
+
+        indicador1, indicador2, indicador3, indicador4 = st.columns(4)
+
+        indicador1.metric(
+            "Total de pedidos",
+            f"{loja_detalhada['total_pedidos']:,}".replace(",", "."),
+        )
+
+        indicador2.metric(
+            "Cancelamentos",
+            f"{loja_detalhada['pedidos_cancelados']:,}".replace(",", "."),
+        )
+
+        indicador3.metric(
+            "Taxa de cancelamento",
+            f"{loja_detalhada['taxa_cancelamento']:.2f}%".replace(".", ","),
+        )
+
+        tempo_mediano = loja_detalhada["tempo_mediano_ciclo"]
+
+        indicador4.metric(
+            "Tempo mediano do ciclo",
+            f"{tempo_mediano:.1f} min".replace(".", ",")
+            if tempo_mediano is not None
+            else "Indisponível",
+        )
+
+
+if tempo_mediano is not None and tempo_mediano > 120:
+    st.warning(
+        "⚠️ O tempo mediano do ciclo está acima de 120 minutos. "
+        "Recomenda-se investigar possíveis inconsistências "
+        "nos registros antes de tirar conclusões operacionais."
+    )
+
+
+
 # Armazena o relatório durante a sessão
 if "relatorio_ia" not in st.session_state:
     st.session_state.relatorio_ia = None
