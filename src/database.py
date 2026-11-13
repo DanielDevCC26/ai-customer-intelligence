@@ -43,3 +43,35 @@ def consultar_lojas_criticas(limite=10):
 
     finally:
         conexao.close()
+
+
+def consultar_todas_lojas():
+    """Consulta os indicadores de todas as lojas cadastradas."""
+
+    conexao = conectar_banco()
+
+    try:
+        cursor = conexao.execute(
+            """
+            SELECT
+                store_id,
+                store_name,
+                total_pedidos,
+                pedidos_cancelados,
+                ROUND(taxa_cancelamento, 2) AS taxa_cancelamento,
+                tempo_mediano_ciclo,
+                pedidos_com_tempo
+            FROM store_performance
+            ORDER BY store_id
+            """
+        )
+
+        colunas = [coluna[0] for coluna in cursor.description]
+
+        return [
+            dict(zip(colunas, linha))
+            for linha in cursor.fetchall()
+        ]
+
+    finally:
+        conexao.close()

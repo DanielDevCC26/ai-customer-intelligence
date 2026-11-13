@@ -1,10 +1,15 @@
 
+import altair as alt
 import streamlit as st
-from src.analysis import analisar_cancelamentos
-from src.report import gerar_relatorio_loja
+
 from google.genai.errors import ServerError
 
+from src.analysis import analisar_cancelamentos
+from src.database import consultar_todas_lojas
+from src.report import gerar_relatorio_loja
 
+
+# Configuração inicial da aplicação
 st.set_page_config(
     page_title="AI Customer Intelligence",
     page_icon="📊",
@@ -12,7 +17,6 @@ st.set_page_config(
 )
 
 st.title("📊 AI Customer Intelligence")
-
 st.subheader("Inteligência operacional para delivery")
 
 st.write(
@@ -24,10 +28,60 @@ st.write(
 st.divider()
 
 
-st.subheader("🏪 Lojas prioritárias")
-
+# Consulta dos dados no SQLite
 lojas = analisar_cancelamentos(limite=10)
+todas_lojas = consultar_todas_lojas()
 
+
+# ==================================================
+# VISÃO GERAL DA PLATAFORMA
+# ==================================================
+
+st.subheader("📈 Visão geral da plataforma")
+
+total_pedidos = sum(
+    loja["total_pedidos"] for loja in todas_lojas
+)
+
+total_cancelamentos = sum(
+    loja["pedidos_cancelados"] for loja in todas_lojas
+)
+
+taxa_geral = (
+    total_cancelamentos / total_pedidos * 100
+    if total_pedidos > 0 else 0
+)
+
+geral1, geral2, geral3, geral4 = st.columns(4)
+
+geral1.metric(
+    "Restaurantes",
+    len(todas_lojas),
+)
+
+geral2.metric(
+    "Total de pedidos",
+    f"{total_pedidos:,}".replace(",", "."),
+)
+
+geral3.metric(
+    "Cancelamentos",
+    f"{total_cancelamentos:,}".replace(",", "."),
+)
+
+geral4.metric(
+    "Taxa geral",
+    f"{taxa_geral:.2f}%".replace(".", ","),
+)
+
+st.divider()
+
+
+# ==================================================
+# RANKING DE LOJAS PRIORITÁRIAS
+# ==================================================
+
+st.subheader("🏪 Lojas prioritárias")
 
 col1, col2, col3 = st.columns(3)
 
@@ -48,13 +102,11 @@ col3.metric(
 
 st.divider()
 
-
 st.write(
     "Restaurantes com taxa de cancelamento acima de 4,6%, "
     "pelo menos 100 pedidos e priorização pelo volume "
     "absoluto de cancelamentos."
 )
-
 
 st.dataframe(
     lojas,
@@ -80,16 +132,11 @@ st.dataframe(
 )
 
 
+# ==================================================
+# GRÁFICO DE CANCELAMENTOS
+# ==================================================
+
 st.subheader("📊 Cancelamentos por restaurante")
-
-dados_grafico = {
-    loja["store_name"]: loja["pedidos_cancelados"]
-    for loja in lojas
-}
-
-
-
-import altair as alt
 
 dados = [
     {
@@ -112,14 +159,18 @@ grafico = (
 
 st.altair_chart(grafico, width="stretch")
 
-
 st.divider()
+
+
+# ==================================================
+# ANÁLISE COM INTELIGÊNCIA ARTIFICIAL
+# ==================================================
 
 st.subheader("🤖 Análise com inteligência artificial")
 
 lojas_disponiveis = {
     f"{loja['store_name']} (ID: {loja['store_id']})": loja["store_id"]
-    for loja in lojas
+    for loja in todas_lojas
 }
 
 loja_escolhida = st.selectbox(
@@ -128,19 +179,20 @@ loja_escolhida = st.selectbox(
 )
 
 st.caption(
-    "Selecione uma das lojas prioritárias para gerar "
-    "um relatório operacional com inteligência artificial."
+    "Selecione qualquer uma das 951 lojas cadastradas "
+    "para consultar sua análise operacional."
 )
 
 
+# Armazena o relatório durante a sessão
 if "relatorio_ia" not in st.session_state:
     st.session_state.relatorio_ia = None
-
 
 if "loja_relatorio_id" not in st.session_state:
     st.session_state.loja_relatorio_id = None
 
 
+# Geração do relatório sob demanda
 if st.button("🤖 Gerar análise com IA"):
     store_id = lojas_disponiveis[loja_escolhida]
 
@@ -151,7 +203,6 @@ if st.button("🤖 Gerar análise com IA"):
         st.session_state.relatorio_ia = relatorio
         st.session_state.loja_relatorio_id = store_id
 
-    
     except ServerError as erro:
         if erro.code == 503:
             st.warning(
@@ -164,7 +215,6 @@ if st.button("🤖 Gerar análise com IA"):
                 "Tente novamente mais tarde."
             )
 
-
     except Exception:
         st.error(
             "Não foi possível gerar o relatório neste momento. "
@@ -173,12 +223,10 @@ if st.button("🤖 Gerar análise com IA"):
         )
 
 
+# Exibe apenas o relatório da loja selecionada
 if (
     st.session_state.relatorio_ia
     and st.session_state.loja_relatorio_id
     == lojas_disponiveis[loja_escolhida]
 ):
     st.markdown(st.session_state.relatorio_ia)
-
-
-

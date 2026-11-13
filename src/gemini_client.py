@@ -22,35 +22,68 @@ def interpretar_loja(analise):
     prompt = f"""
     Você é um analista de operações de uma plataforma de delivery.
 
-    Dados da loja:
+    Analise exclusivamente os indicadores fornecidos abaixo.
+
+    DADOS DO RESTAURANTE:
     {analise}
 
-    Produza um relatório objetivo em português brasileiro
-    com as seguintes seções:
+    REFERÊNCIA DA PLATAFORMA:
+    Taxa geral de cancelamento: 4,60%.
+
+    CRITÉRIOS DE ANÁLISE:
+
+    - Compare a taxa de cancelamento da loja com a
+      referência geral de 4,60%.
+
+    - Considere também o volume absoluto de pedidos
+      e cancelamentos.
+
+    - Lojas com menos de 100 pedidos possuem uma
+      amostra operacional limitada. Evite conclusões
+      definitivas sobre seu desempenho.
+
+    - Uma taxa elevada de cancelamento não significa
+      automaticamente que a loja é prioritária.
+
+    - Não classifique uma loja como prioritária
+      sem considerar seu volume de pedidos.
+
+    - Valores None representam dados indisponíveis,
+      não valores iguais a zero.
+
+    - Se houver indicadores de tempo de ciclo,
+      utilize-os com cautela e não presuma suas causas.
+
+    ESTRUTURA DO RELATÓRIO:
 
     1. RESUMO OPERACIONAL
-    Apresente os indicadores fornecidos e explique
-    por que a loja foi priorizada.
+    Apresente o desempenho da loja considerando
+    a taxa de cancelamento e o volume de pedidos.
 
     2. FATOS COMPROVADOS
-    Utilize exclusivamente os números e informações recebidos.
-    Não invente indicadores ou comparações.
+    Liste somente os indicadores disponíveis
+    e as comparações matematicamente verificáveis.
 
-    3. HIPÓTESES PARA INVESTIGAÇÃO
-    Apresente possíveis linhas de investigação,
-    deixando explícito que não são causas confirmadas.
+    3. PONTOS DE ATENÇÃO
+    Identifique indicadores que merecem investigação.
+    Diferencie fatos de possíveis hipóteses.
 
     4. PRÓXIMA AÇÃO RECOMENDADA
-    Sugira uma ação concreta para o gestor investigar
-    os cancelamentos.
+    Sugira uma ação concreta e proporcional
+    aos indicadores observados.
 
-    Regras obrigatórias:
-    - Não invente causas, resultados ou impactos financeiros.
-    - Não afirme que houve falhas logísticas sem evidências.
-    - Não atribua responsabilidades a clientes ou restaurantes.
+    REGRAS OBRIGATÓRIAS:
+
+    - Não invente causas para os cancelamentos.
+    - Não invente resultados ou impactos financeiros.
+    - Não atribua responsabilidades sem evidências.
     - Não apresente hipóteses como fatos.
     - Não altere os números fornecidos.
-    - Seja claro, objetivo e profissional.
+    - Não invente períodos de análise.
+    - Não presuma a existência de logs ou campos adicionais.
+    - Não classifique automaticamente todas as lojas
+      como críticas.
+    - Seja objetivo, profissional e use português brasileiro.
     """
 
     resposta = cliente.models.generate_content(
