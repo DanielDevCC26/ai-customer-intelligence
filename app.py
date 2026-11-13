@@ -208,6 +208,7 @@ st.caption(
 )
 
 
+
 if loja_escolhida is not None:
     store_id = lojas_disponiveis[loja_escolhida]
 
@@ -231,9 +232,15 @@ if loja_escolhida is not None:
             f"{loja_detalhada['pedidos_cancelados']:,}".replace(",", "."),
         )
 
+        diferenca_cancelamento = (
+            loja_detalhada["taxa_cancelamento"] - taxa_geral
+        )
+
         indicador3.metric(
             "Taxa de cancelamento",
             f"{loja_detalhada['taxa_cancelamento']:.2f}%".replace(".", ","),
+            delta=f"{diferenca_cancelamento:+.2f} p.p. vs. média".replace(".", ",", 1),
+            delta_color="inverse",
         )
 
         tempo_mediano = loja_detalhada["tempo_mediano_ciclo"]
@@ -245,13 +252,13 @@ if loja_escolhida is not None:
             else "Indisponível",
         )
 
+        if tempo_mediano is not None and tempo_mediano > 120:
+            st.warning(
+                "⚠️ O tempo mediano do ciclo está acima de 120 minutos. "
+                "Recomenda-se investigar possíveis inconsistências "
+                "nos registros antes de tirar conclusões operacionais."
+            )
 
-if tempo_mediano is not None and tempo_mediano > 120:
-    st.warning(
-        "⚠️ O tempo mediano do ciclo está acima de 120 minutos. "
-        "Recomenda-se investigar possíveis inconsistências "
-        "nos registros antes de tirar conclusões operacionais."
-    )
 
 
 
