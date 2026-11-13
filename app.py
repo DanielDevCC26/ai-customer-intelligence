@@ -220,6 +220,15 @@ if loja_escolhida is not None:
     if loja_detalhada:
         st.subheader("📋 Indicadores do restaurante")
 
+
+        if loja_detalhada["total_pedidos"] < 100:
+            st.info(
+                "ℹ️ Este restaurante possui menos de 100 pedidos. "
+                "A amostra é limitada e os indicadores devem "
+                "ser interpretados com cautela."
+            )
+
+
         indicador1, indicador2, indicador3, indicador4 = st.columns(4)
 
         indicador1.metric(
