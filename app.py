@@ -168,15 +168,39 @@ st.divider()
 
 st.subheader("🤖 Análise com inteligência artificial")
 
+
+pesquisa_loja = st.text_input(
+    "🔎 Pesquisar restaurante",
+    placeholder="Digite o nome ou ID da loja...",
+)
+
+lojas_filtradas = [
+    loja for loja in todas_lojas
+    if pesquisa_loja.lower() in loja["store_name"].lower()
+    or pesquisa_loja in str(loja["store_id"])
+]
+
+
+
 lojas_disponiveis = {
     f"{loja['store_name']} (ID: {loja['store_id']})": loja["store_id"]
-    for loja in todas_lojas
+    for loja in lojas_filtradas
 }
+
+
 
 loja_escolhida = st.selectbox(
     "Selecione um restaurante para análise:",
     options=list(lojas_disponiveis.keys()),
+    placeholder="Nenhum restaurante encontrado",
 )
+
+if not lojas_disponiveis:
+    st.warning(
+        "Nenhum restaurante corresponde à pesquisa. "
+        "Tente outro nome ou ID."
+    )
+
 
 st.caption(
     "Selecione qualquer uma das 951 lojas cadastradas "
@@ -193,7 +217,12 @@ if "loja_relatorio_id" not in st.session_state:
 
 
 # Geração do relatório sob demanda
-if st.button("🤖 Gerar análise com IA"):
+
+if st.button(
+    "🤖 Gerar análise com IA",
+    disabled=not lojas_disponiveis,
+):
+
     store_id = lojas_disponiveis[loja_escolhida]
 
     try:
@@ -224,9 +253,12 @@ if st.button("🤖 Gerar análise com IA"):
 
 
 # Exibe apenas o relatório da loja selecionada
+
 if (
-    st.session_state.relatorio_ia
+    loja_escolhida is not None
+    and st.session_state.relatorio_ia
     and st.session_state.loja_relatorio_id
     == lojas_disponiveis[loja_escolhida]
 ):
     st.markdown(st.session_state.relatorio_ia)
+
