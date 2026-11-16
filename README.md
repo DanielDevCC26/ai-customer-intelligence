@@ -1,195 +1,309 @@
 
-# AI Customer Intelligence
+# 📊 AI Customer Intelligence
 
-Plataforma de inteligência operacional para restaurantes e serviços de delivery, desenvolvida com Python, SQL, Streamlit e Inteligência Artificial Generativa.
+### Inteligência operacional para restaurantes e delivery com Python, SQL e IA generativa
 
-O projeto transforma dados históricos de pedidos em indicadores operacionais, visualizações interativas e análises contextualizadas para apoiar a tomada de decisões.
+O **AI Customer Intelligence** é uma aplicação de análise de dados que transforma informações históricas de pedidos em indicadores operacionais, rankings de restaurantes e recomendações geradas por inteligência artificial.
 
-## Sobre o projeto
+O projeto combina **Python, Pandas, SQLite, Streamlit e Google Gemini** para apoiar a identificação de estabelecimentos com taxas elevadas de cancelamento e facilitar a investigação de possíveis problemas operacionais.
 
-O AI Customer Intelligence foi desenvolvido como projeto de portfólio, com foco na aplicação prática de análise de dados, bancos de dados relacionais, desenvolvimento Python e integração com modelos de linguagem.
+Desenvolvido como projeto de portfólio, com foco em análise de dados, automação e inteligência artificial aplicada a negócios.
 
-A proposta é demonstrar como dados operacionais de uma plataforma de delivery podem ser utilizados para identificar restaurantes que merecem atenção, comparar indicadores e apoiar investigações de problemas operacionais.
+---
 
-A aplicação combina:
+## 🖥️ Demonstração do projeto
 
-- Processamento e análise de dados com Python e Pandas.
-- Consultas SQL em banco SQLite.
-- Dashboard interativo desenvolvido com Streamlit.
-- Visualizações de dados com Altair.
-- Classificação operacional baseada em critérios definidos.
-- Integração com Google Gemini para geração de relatórios.
-- Testes automatizados com pytest.
+### Visão geral da plataforma
 
-## Objetivos
+O dashboard apresenta os principais indicadores da operação, incluindo restaurantes cadastrados, volume de pedidos, cancelamentos e taxa geral de cancelamento.
 
-- Analisar o desempenho operacional de restaurantes.
-- Identificar estabelecimentos com indicadores de cancelamento elevados.
-- Comparar restaurantes com a referência geral da plataforma.
+![Visão geral do AI Customer Intelligence](docs/images/dashboard-overview.png)
+
+### Análise operacional por restaurante
+
+A aplicação permite pesquisar restaurantes pelo nome ou identificador, consultar seus indicadores e visualizar sua classificação operacional.
+
+![Análise operacional do restaurante 1029](docs/images/restaurant-analysis.png)
+
+### Comparação de cancelamentos
+
+A taxa de cancelamento do restaurante selecionado é comparada à média geral da plataforma, facilitando a identificação de estabelecimentos que merecem atenção.
+
+![Comparação de cancelamentos](docs/images/cancellation-comparison.png)
+
+---
+
+## 🎯 Objetivo
+
+Demonstrar como dados operacionais de uma plataforma de delivery podem ser utilizados para:
+
+- Identificar restaurantes com indicadores críticos de cancelamento.
+- Priorizar estabelecimentos com maior volume absoluto de cancelamentos.
+- Comparar o desempenho individual com a referência geral da plataforma.
 - Investigar indicadores de tempo de ciclo dos pedidos.
-- Diferenciar estabelecimentos com volume relevante daqueles com amostras limitadas.
-- Gerar relatórios operacionais com apoio de IA generativa.
-- Demonstrar um fluxo reproduzível de processamento e análise de dados.
+- Diferenciar situações de atenção de resultados com amostras limitadas.
+- Gerar análises operacionais com apoio de inteligência artificial generativa.
+- Transformar indicadores em recomendações para apoiar a tomada de decisão.
 
-## Base de dados
+O projeto utiliza critérios transparentes de classificação e evita atribuir causas aos problemas sem evidências suficientes.
+
+---
+
+## 📂 Base de dados
 
 O projeto utiliza o dataset público **Brazilian Delivery Center**, disponível no Kaggle.
 
 **Fonte:** https://www.kaggle.com/datasets/nosbielcs/brazilian-delivery-center
 
-O conjunto original contém sete tabelas relacionadas a pedidos, pagamentos, entregas, estabelecimentos, canais de venda, entregadores e centros operacionais.
+A análise utiliza principalmente os arquivos:
 
-A análise operacional implementada neste projeto utiliza principalmente os arquivos `orders.csv` e `stores.csv`.
+- `orders.csv`: informações sobre pedidos, status e tempos operacionais.
+- `stores.csv`: informações de identificação dos restaurantes.
 
-Os dados originais e os bancos SQLite gerados são mantidos localmente e não são incluídos no repositório.
+Os dados originais são processados e consolidados em um banco SQLite.
 
 ### Indicadores gerais
 
 | Indicador | Resultado |
 |---|---:|
 | Restaurantes analisados | 951 |
-| Pedidos registrados | 368.999 |
+| Total de pedidos | 368.999 |
 | Pedidos cancelados | 16.979 |
 | Taxa geral de cancelamento | 4,60% |
 
-A taxa geral de cancelamento é utilizada como referência para a classificação operacional dos restaurantes.
+A taxa geral de cancelamento é utilizada como referência para avaliar os restaurantes individualmente.
 
-## Tecnologias utilizadas
+---
+
+## ⚙️ Tecnologias utilizadas
 
 | Tecnologia | Aplicação |
 |---|---|
-| Python | Processamento, consultas e lógica de negócio |
-| Pandas | Exploração, tratamento e agregação de dados |
+| Python | Processamento e lógica da aplicação |
+| Pandas | Limpeza, transformação e agregação de dados |
 | SQL | Consultas aos indicadores operacionais |
 | SQLite | Armazenamento dos dados consolidados |
-| Streamlit | Interface e dashboard interativo |
-| Altair | Gráficos e visualizações |
-| Google Gemini API | Interpretação dos indicadores com IA |
+| Streamlit | Desenvolvimento do dashboard interativo |
+| Altair | Visualizações e gráficos |
+| Google Gemini API | Geração de relatórios com IA |
 | python-dotenv | Gerenciamento de variáveis de ambiente |
 | pytest | Testes automatizados |
-| Git e GitHub | Versionamento e documentação |
 | Jupyter Notebook | Exploração e validação dos dados |
+| Git e GitHub | Versionamento e documentação |
 
-## Funcionalidades
+---
 
-### 1. Dashboard operacional
+## 🚀 Funcionalidades
 
-O dashboard apresenta uma visão geral da plataforma, incluindo:
+### 1. Visão geral da plataforma
 
-- Quantidade de restaurantes analisados.
-- Volume total de pedidos.
+O dashboard apresenta os principais indicadores operacionais:
+
+- Quantidade de restaurantes.
+- Total de pedidos.
 - Quantidade de cancelamentos.
 - Taxa geral de cancelamento.
-- Ranking de restaurantes com maior volume de cancelamentos entre os elegíveis.
-- Gráficos para comparação de indicadores.
 
-### 2. Pesquisa de restaurantes
+Esses indicadores oferecem uma visão consolidada do desempenho da plataforma.
 
-A aplicação permite pesquisar restaurantes por nome ou identificador.
+### 2. Identificação de restaurantes prioritários
 
-Ao selecionar um estabelecimento, são apresentados:
+A aplicação identifica restaurantes com taxa de cancelamento acima da média geral e pelo menos 100 pedidos registrados.
 
+Os estabelecimentos elegíveis são priorizados pelo volume absoluto de cancelamentos.
+
+O dashboard apresenta:
+
+- Quantidade de lojas prioritárias.
+- Total de pedidos analisados nessas lojas.
+- Total de cancelamentos.
+- Ranking com os dez restaurantes prioritários.
+- Gráfico comparativo do volume de cancelamentos.
+
+Essa abordagem considera tanto a taxa percentual quanto o impacto operacional em quantidade de pedidos.
+
+### 3. Pesquisa de restaurantes
+
+É possível pesquisar estabelecimentos por nome ou identificador.
+
+Para cada restaurante selecionado, são apresentados:
+
+- Identificador e nome.
 - Total de pedidos.
-- Pedidos cancelados.
+- Quantidade de cancelamentos.
 - Taxa de cancelamento.
-- Tempo mediano de ciclo, quando disponível.
-- Comparação com a referência geral da plataforma.
+- Tempo mediano de ciclo.
 - Classificação operacional.
+- Comparação com a taxa geral da plataforma.
 
-### 3. Classificação operacional
+### 4. Classificação operacional
 
-Os restaurantes são classificados conforme critérios definidos na aplicação.
+Os restaurantes são classificados conforme os seguintes critérios:
 
 | Classificação | Critério |
 |---|---|
 | Amostra limitada | Menos de 100 pedidos |
-| Atenção | Pelo menos 100 pedidos e taxa de cancelamento acima da referência |
-| Dentro da referência | Pelo menos 100 pedidos e taxa igual ou inferior à referência |
+| Atenção | Pelo menos 100 pedidos e taxa de cancelamento superior à referência geral |
+| Dentro da referência | Pelo menos 100 pedidos e taxa de cancelamento igual ou inferior à referência geral |
 
-A classificação considera tanto o percentual de cancelamentos quanto o volume de pedidos.
+O limite mínimo de pedidos reduz o risco de interpretar percentuais elevados obtidos a partir de amostras muito pequenas.
 
-Um restaurante com poucos pedidos não é automaticamente considerado prioritário apenas por apresentar uma taxa elevada de cancelamento.
+As classificações são exploratórias e não constituem diagnósticos definitivos.
 
-Esses critérios são exploratórios e não representam diagnósticos definitivos.
+### 5. Comparação de cancelamentos
 
-### 4. Comparação de indicadores
+O dashboard compara visualmente:
 
-O dashboard apresenta gráficos comparativos entre a taxa de cancelamento do restaurante selecionado e a taxa geral da plataforma.
+- A taxa de cancelamento do restaurante selecionado.
+- A taxa média de cancelamento da plataforma.
 
-Também sinaliza tempos medianos de ciclo elevados para apoiar investigações operacionais.
+Também apresenta a diferença em pontos percentuais entre os indicadores.
 
-Os indicadores de tempo são utilizados com cautela devido à presença de valores extremos e possíveis inconsistências na base original.
+### 6. Análise do tempo mediano de ciclo
 
-### 5. Relatórios com inteligência artificial
+A aplicação utiliza a mediana do tempo de ciclo dos pedidos finalizados.
 
-A aplicação integra o modelo `gemini-3.1-flash-lite`, por meio da API do Google Gemini.
+A escolha da mediana reduz a influência de valores extremos quando comparada à média aritmética.
 
-O usuário pode solicitar um relatório operacional para o restaurante selecionado.
+Quando o indicador ultrapassa 120 minutos, o dashboard apresenta um alerta recomendando investigar possíveis inconsistências antes de tirar conclusões operacionais.
 
-O modelo recebe os indicadores disponíveis e instruções para produzir uma análise estruturada.
+O alerta não afirma que o restaurante necessariamente apresenta atrasos reais de entrega.
 
-O relatório contempla:
+### 7. Relatórios com inteligência artificial
+
+A aplicação utiliza o modelo `gemini-3.1-flash-lite`, por meio da API do Google Gemini.
+
+O relatório é gerado sob demanda, quando o usuário seleciona um restaurante e solicita a análise.
+
+A estrutura do relatório contempla:
 
 1. Resumo operacional.
-2. Fatos comprovados pelos dados.
+2. Fatos comprovados pelos indicadores.
 3. Pontos de atenção.
 4. Próxima ação recomendada.
 
-#### Regras de interpretação
+A integração orienta o modelo a:
 
-A integração foi desenvolvida para orientar o modelo a:
-
-- Utilizar exclusivamente os indicadores fornecidos.
-- Comparar os resultados com a referência geral.
+- Utilizar os indicadores fornecidos.
+- Comparar o restaurante com a referência geral.
 - Considerar o volume de pedidos.
-- Reconhecer amostras operacionais limitadas.
-- Não inventar causas de cancelamentos.
+- Reconhecer amostras limitadas.
+- Não inventar causas para cancelamentos.
 - Não atribuir responsabilidades sem evidências.
-- Não apresentar hipóteses como fatos comprovados.
 - Não inventar impactos financeiros.
-- Reconhecer indicadores indisponíveis.
+- Diferenciar fatos observados de hipóteses.
+- Reconhecer limitações dos dados disponíveis.
 
-A geração dos relatórios ocorre sob demanda, mediante ação do usuário.
+As recomendações geradas pela IA devem ser interpretadas como apoio à análise, não como conclusões definitivas.
 
-## Processamento dos dados
+---
 
-O processamento original foi desenvolvido em Jupyter Notebook e posteriormente organizado em um script Python para reconstrução dos indicadores.
+## 🔍 Exemplo de análise: restaurante 1029
+
+O restaurante **UVURUSM (ID 1029)** foi utilizado para demonstrar as funcionalidades da aplicação.
+
+| Indicador | Resultado |
+|---|---:|
+| Total de pedidos | 4.470 |
+| Cancelamentos | 1.154 |
+| Taxa de cancelamento | 25,82% |
+| Taxa geral da plataforma | 4,60% |
+| Diferença | +21,22 pontos percentuais |
+| Tempo mediano de ciclo | 1.524,8 minutos |
+| Classificação operacional | Atenção |
+
+O estabelecimento apresenta taxa de cancelamento superior à referência geral, com volume suficiente para ser classificado como **Atenção**.
+
+O tempo mediano de ciclo também é elevado. Entretanto, esse indicador exige investigação adicional devido à presença de valores extremos e possíveis inconsistências nos dados originais.
+
+O projeto não atribui automaticamente uma causa para os cancelamentos nem interpreta o tempo registrado como prova de atraso real.
+
+---
+
+## 🗄️ Processamento e armazenamento dos dados
+
+O processamento foi desenvolvido inicialmente em Jupyter Notebook e posteriormente organizado em um script Python para permitir a reconstrução dos indicadores.
 
 ### Etapas do processamento
 
-1. Leitura dos arquivos originais de pedidos e restaurantes.
-2. Relacionamento dos registros pelo identificador `store_id`.
-3. Identificação dos pedidos com status `CANCELED`.
-4. Agrupamento dos pedidos por restaurante.
-5. Cálculo do volume de pedidos e cancelamentos.
-6. Cálculo da taxa percentual de cancelamento.
-7. Seleção dos pedidos com status `FINISHED`.
-8. Cálculo do tempo mediano de ciclo por restaurante.
-9. Consolidação dos indicadores operacionais.
-10. Armazenamento dos resultados em SQLite.
+1. Carregamento dos arquivos CSV originais.
+2. Relacionamento entre pedidos e restaurantes pelo campo `store_id`.
+3. Identificação dos pedidos cancelados.
+4. Agrupamento dos registros por restaurante.
+5. Cálculo do volume total de pedidos.
+6. Cálculo da quantidade de cancelamentos.
+7. Cálculo da taxa percentual de cancelamento.
+8. Seleção dos pedidos finalizados.
+9. Cálculo do tempo mediano de ciclo.
+10. Consolidação dos indicadores operacionais.
+11. Armazenamento em banco SQLite.
 
-### Tabela consolidada
-
-A tabela `store_performance` contém os campos:
+### Estrutura da tabela `store_performance`
 
 | Campo | Descrição |
 |---|---|
 | `store_id` | Identificador do restaurante |
 | `store_name` | Nome do restaurante |
-| `total_pedidos` | Quantidade de pedidos |
-| `pedidos_cancelados` | Quantidade de cancelamentos |
-| `taxa_cancelamento` | Percentual de cancelamentos |
+| `total_pedidos` | Quantidade total de pedidos |
+| `pedidos_cancelados` | Quantidade de pedidos cancelados |
+| `taxa_cancelamento` | Taxa percentual de cancelamento |
 | `tempo_mediano_ciclo` | Mediana do tempo de ciclo dos pedidos finalizados |
-| `pedidos_com_tempo` | Quantidade de pedidos finalizados com indicador de tempo disponível |
+| `pedidos_com_tempo` | Quantidade de pedidos finalizados com tempo disponível |
 
-## Instalação e execução
+---
+
+## 🔄 Reconstrução reproduzível do banco SQLite
+
+O projeto disponibiliza o script:
+
+` scripts/rebuild_database.py `
+
+Ele permite reconstruir os indicadores operacionais a partir dos arquivos originais do dataset.
+
+### Validação da reconstrução
+
+O script foi executado e os resultados foram comparados com o banco original.
+
+| Verificação | Resultado |
+|---|---|
+| Restaurantes reconstruídos | 951 |
+| Pedidos considerados | 368.999 |
+| Cancelamentos identificados | 16.979 |
+| Comparação dos registros | Idênticos |
+| Preservação do banco principal | Confirmada |
+
+A comparação incluiu os registros e indicadores dos 951 restaurantes.
+
+**Resultado: todos os indicadores comparados foram idênticos aos do banco original.**
+
+### Proteção contra sobrescrita
+
+O script gera o arquivo:
+
+`data/processed/customer_intelligence_rebuild.db`
+
+O banco principal utilizado pelo dashboard é:
+
+`data/processed/customer_intelligence.db`
+
+O script não modifica o banco principal.
+
+Se o banco reconstruído já existir, a execução é interrompida para evitar sobrescrita acidental.
+
+Para repetir o processamento, é necessário remover o arquivo reconstruído anteriormente.
+
+Esse comportamento foi validado durante o desenvolvimento.
+
+---
+
+## 💻 Instalação e execução
 
 ### Pré-requisitos
 
-- Python 3.14
-- Git
-- Acesso ao dataset Brazilian Delivery Center
-- Chave de API do Google Gemini para utilizar os relatórios de IA
+- Python 3.14.
+- Git.
+- Dataset Brazilian Delivery Center.
+- Chave de API do Google Gemini para utilizar a funcionalidade de relatórios com IA.
 
 ### 1. Clonar o repositório
 
@@ -204,7 +318,7 @@ cd ai-customer-intelligence
 python -m venv .venv
 ```
 
-No Windows, utilizando PowerShell:
+No Windows, com PowerShell:
 
 ```powershell
 .\.venv\Scripts\Activate.ps1
@@ -224,19 +338,23 @@ Crie um arquivo `.env` na raiz do projeto:
 GEMINI_API_KEY=sua_chave_aqui
 ```
 
-A chave pode ser obtida por meio do Google AI Studio, conforme as condições de acesso ao serviço.
+A chave pode ser obtida no Google AI Studio:
 
-O arquivo `.env` deve permanecer fora do controle de versão.
+https://aistudio.google.com/
 
-**Nunca publique chaves de API no GitHub.**
+**Nunca publique sua chave de API no GitHub.**
 
-### 5. Preparar os dados
+O arquivo `.env` deve permanecer ignorado pelo Git.
+
+### 5. Preparar os arquivos de dados
 
 Baixe o dataset original:
 
 https://www.kaggle.com/datasets/nosbielcs/brazilian-delivery-center
 
-Crie a estrutura de diretórios:
+Crie as pastas `data/raw/` e `data/processed/`, caso ainda não existam.
+
+Coloque os arquivos na seguinte estrutura:
 
 ```text
 data/
@@ -246,53 +364,23 @@ data/
 └── processed/
 ```
 
-Coloque os arquivos `orders.csv` e `stores.csv` na pasta `data/raw/`.
+### 6. Reconstruir os indicadores
 
-### 6. Reconstruir o banco SQLite
-
-Na raiz do projeto, execute:
+Execute na raiz do projeto:
 
 ```bash
 python scripts/rebuild_database.py
 ```
 
-O script processa os arquivos originais e gera:
+O script criará:
 
 ```text
 data/processed/customer_intelligence_rebuild.db
 ```
 
-A reconstrução foi validada com os seguintes resultados:
+### 7. Preparar o banco principal
 
-| Indicador | Resultado |
-|---|---:|
-| Restaurantes | 951 |
-| Pedidos | 368.999 |
-| Cancelamentos | 16.979 |
-
-Os registros dos 951 restaurantes foram comparados com o banco original, incluindo seus indicadores operacionais.
-
-**Resultado da comparação: indicadores idênticos.**
-
-#### Segurança da reconstrução
-
-O script não modifica o banco principal `customer_intelligence.db`.
-
-Caso o arquivo `customer_intelligence_rebuild.db` já exista, a execução é interrompida para evitar sobrescrita acidental.
-
-Para repetir o processamento, remova somente o banco reconstruído e execute novamente o script.
-
-O processo foi testado após a remoção do banco temporário e reproduziu os mesmos totais.
-
-#### Preparar o banco para o dashboard
-
-O dashboard utiliza o arquivo:
-
-```text
-data/processed/customer_intelligence.db
-```
-
-Após reconstruir e validar o banco, em uma instalação nova, copie o arquivo gerado para o nome esperado pela aplicação.
+Em uma instalação nova, depois de validar o banco reconstruído, copie-o para o nome esperado pela aplicação.
 
 No PowerShell:
 
@@ -300,62 +388,67 @@ No PowerShell:
 Copy-Item "data/processed/customer_intelligence_rebuild.db" "data/processed/customer_intelligence.db"
 ```
 
-Esse comando deve ser utilizado em uma instalação nova, sem um banco principal preexistente.
+Não substitua um banco principal existente sem realizar uma cópia de segurança.
 
-Não substitua um banco existente sem realizar uma cópia de segurança.
-
-### 7. Executar o dashboard
-
-Na raiz do projeto, execute:
+### 8. Executar o dashboard
 
 ```bash
 python -m streamlit run app.py
 ```
 
-O Streamlit exibirá no terminal o endereço local para acessar a aplicação.
+O Streamlit apresentará o endereço local da aplicação no terminal.
 
-### 8. Executar os testes
+### 9. Executar os testes
 
 ```bash
 python -m pytest tests/ -v
 ```
 
-## Testes automatizados
+---
 
-O projeto possui 11 testes automatizados implementados e validados individualmente durante o desenvolvimento.
+## 🧪 Testes automatizados
 
-Os testes abrangem:
+O projeto possui **11 testes automatizados**, executados com pytest.
 
-### Classificação operacional
+### Classificação operacional — 5 testes
 
-- Restaurantes com amostra limitada.
-- Restaurantes classificados como Atenção.
-- Restaurantes dentro da referência.
-- Limite mínimo de 100 pedidos.
-- Taxa de cancelamento igual à referência.
+- Identificação de amostra limitada.
+- Identificação de restaurante em atenção.
+- Identificação de restaurante dentro da referência.
+- Validação do limite mínimo de pedidos.
+- Validação da taxa igual à referência geral.
 
-### Integração com SQLite
+### Banco SQLite — 4 testes
 
-- Retorno de restaurantes cadastrados.
-- Quantidade esperada de 951 restaurantes.
-- Presença dos campos operacionais.
-- Integridade dos indicadores de pedidos e cancelamentos.
+- Consulta de restaurantes.
+- Verificação da quantidade de 951 restaurantes.
+- Verificação dos campos esperados.
+- Validação da integridade dos pedidos e cancelamentos.
 
-### Relatórios de IA
+### Relatórios de IA — 2 testes
 
-- Geração simulada de relatório para restaurante existente.
+- Geração simulada de relatório sem chamada real ao Gemini.
 - Tratamento de restaurante inexistente.
-- Verificação de chamadas simuladas ao módulo de interpretação.
 
-Os testes de relatório utilizam `unittest.mock` para evitar chamadas reais ao Gemini.
+Os testes da integração com IA utilizam simulações para evitar consumo desnecessário da API.
 
-A execução completa da suíte pode ser realizada com:
+### Resultado da validação final
 
-```bash
-python -m pytest tests/ -v
+```text
+11 tests collected
+
+tests/test_classificacao.py              5 PASSED
+tests/test_consultas_sqlite.py           4 PASSED
+tests/test_relatorio_ia.py               2 PASSED
+
+==================== 11 passed ====================
 ```
 
-## Estrutura do projeto
+**Resultado: 100% dos testes aprovados.**
+
+---
+
+## 📁 Estrutura do projeto
 
 ```text
 ai-customer-intelligence/
@@ -363,6 +456,11 @@ ai-customer-intelligence/
 ├── README.md
 ├── requirements.txt
 ├── .gitignore
+├── docs/
+│   └── images/
+│       ├── dashboard-overview.png
+│       ├── restaurant-analysis.png
+│       └── cancellation-comparison.png
 ├── data/
 │   ├── raw/
 │   └── processed/
@@ -378,63 +476,64 @@ ai-customer-intelligence/
 │   ├── gemini_client.py
 │   └── report.py
 └── tests/
-    ├── test_analysis.py
     ├── test_classificacao.py
     ├── test_consultas_sqlite.py
-    ├── test_database.py
-    ├── test_gemini.py
-    ├── test_gemini_analysis.py
     └── test_relatorio_ia.py
 ```
 
-Os arquivos de dados locais, bancos SQLite, ambientes virtuais e credenciais não são publicados no repositório.
+Os arquivos CSV, os bancos SQLite, as credenciais e o ambiente virtual não são incluídos no repositório.
 
-## Limitações
+---
 
-- O projeto utiliza dados históricos de um conjunto público.
-- Os indicadores operacionais não representam dados em tempo real.
-- A análise atual concentra-se principalmente em pedidos, cancelamentos e tempos de ciclo.
-- Os dados de tempo apresentam valores extremos e possíveis inconsistências.
+## ⚠️ Limitações
+
+- Os dados são históricos e não representam operações em tempo real.
+- A análise concentra-se em pedidos, cancelamentos e tempos de ciclo.
+- Alguns registros de tempo apresentam valores extremos ou possíveis inconsistências.
 - A classificação operacional utiliza critérios exploratórios.
-- Não há informações suficientes para determinar automaticamente as causas dos cancelamentos.
-- As análises geradas pela IA dependem dos indicadores fornecidos.
-- A IA pode produzir interpretações incorretas e suas recomendações devem ser revisadas.
-- A geração de relatórios depende da disponibilidade da API do Gemini.
-- A utilização da API pode estar sujeita a limites e custos conforme as condições do serviço.
+- Não existem informações suficientes para identificar automaticamente as causas dos cancelamentos.
+- As recomendações da IA dependem dos indicadores fornecidos.
+- Relatórios gerados por modelos de linguagem podem conter interpretações incorretas.
+- A geração de relatórios depende da disponibilidade da API do Gemini e pode estar sujeita a limites de uso ou custos.
 
-## Próximas melhorias
+---
 
-Possíveis evoluções do projeto incluem:
+## 🔮 Possíveis melhorias futuras
 
-- Análise de tendências temporais.
-- Indicadores adicionais de desempenho logístico.
-- Comparação entre segmentos de restaurantes.
+- Análise de tendências de cancelamento ao longo do tempo.
+- Novos indicadores de desempenho logístico.
+- Comparações por segmento de restaurante.
 - Exportação de relatórios.
-- Ampliação dos testes automatizados.
-- Publicação de uma demonstração acessível pela internet.
+- Ampliação da cobertura dos testes.
+- Publicação de uma demonstração online.
 
-## Status do projeto
+---
 
-**Funcionalidades principais implementadas.**
+## 📌 Status do projeto
 
-O projeto possui:
+**Versão funcional validada.**
 
-- Processamento de dados desenvolvido.
-- Banco SQLite consolidado.
-- Script de reconstrução validado.
-- Dashboard interativo implementado.
+Funcionalidades implementadas:
+
+- Processamento e consolidação de dados.
+- Banco SQLite com indicadores operacionais.
+- Script reproduzível de reconstrução.
+- Dashboard interativo.
+- Pesquisa e análise individual de restaurantes.
+- Ranking de estabelecimentos prioritários.
 - Classificação operacional automatizada.
+- Comparação visual de cancelamentos.
 - Integração com Google Gemini.
-- Testes automatizados.
-- Documentação de instalação e execução.
+- Testes automatizados aprovados.
+- Documentação e capturas de tela.
 
-A validação final da aplicação e a preparação da demonstração fazem parte das últimas etapas do desenvolvimento.
+---
 
-## Autor
+## 👨‍💻 Autor
 
 **Daniel Gonçalves Santana**
 
-Estudante de Análise e Desenvolvimento de Sistemas, com foco em análise de dados, inteligência de negócios, Python e inteligência artificial.
+Estudante de Análise e Desenvolvimento de Sistemas, com foco em análise de dados, Business Intelligence, Python e inteligência artificial.
 
 **GitHub:** https://github.com/DanielDevCC26
 
